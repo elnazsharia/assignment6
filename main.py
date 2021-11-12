@@ -46,22 +46,30 @@ def translate_per_to_en():
     print(output)
 
 
-def add_new_word():
-
-    with open('wordsBank.txt', 'r') as f:
-        text = f.read()
-        en_word = f.write(input("enter a word!  "))
-        """ fa_word = f.write(
-            input("please translate in to farsi to add it to your database!:  ")) """
-        for word in words_bank:
-            if en_word != word:
-                flag = 1
+def save_new_word():
+    with open('wordsBank.txt', 'w') as f:
+        for i in range(0, len(words_bank)):
+            f.write(words_bank[i]["english"] + '\n')
+            if i == len(words_bank)-1:
+                f.write(words_bank[i]["persian"])
             else:
-                flag = 0
+                f.write(words_bank[i]["persian"] + '\n')
+    f.close()
+    print("word added! ")
 
-            if(flag == 1):
-                text.append(en_word)
-    print(words_bank)
+
+def add_new_word():
+    new_word = input("please enter your word!   ")
+    for word in words_bank:
+        if word["english"] == new_word:
+            print("this word is in the dictionary")
+            break
+        else:
+            persian_word = input("please enter the meaning!   ")
+
+        new_words = {"english": new_word, "persian": persian_word}
+        words_bank.append(new_words)
+        save_new_word()
 
 
 def menu():
